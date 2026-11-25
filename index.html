@@ -41,11 +41,16 @@
     <a class="pill big" href="#inside">See inside</a>
     <ul class="chips"><li class="glass">No battery</li><li class="glass">No chip</li><li class="glass">58 kHz exit label</li></ul>
   </div>
+  <p class="hint hero-hint mono">Move your cursor · click the tag to ring it</p>
   <p class="rule mono">Retail loss prevention · Hardware concept · Renders from our CAD</p>
 </section>
 
 <section id="problem" class="plain">
   <p class="mono label">The problem</p>
+  <figure class="photo">
+    <img src="https://images.unsplash.com/photo-1754321159253-8c9bd02cfb4c?w=900&q=70&auto=format&fit=crop" width="900" height="1200" loading="lazy" alt="A small boutique interior with products on shelves behind a fluted counter">
+    <figcaption class="mono">Photo: <a href="https://unsplash.com/@eladepure">Ela De Pure</a> / <a href="https://unsplash.com/photos/a-minimalist-shop-with-shelves-and-products-nzisN6dYiV8">Unsplash</a></figcaption>
+  </figure>
   <h2 class="serif words">Small stores feel it.</h2>
   <div class="stats">
     <div><span class="num" data-to="56">0</span><sup>%</sup><p>reported shoplifting in the past year.</p></div>
@@ -88,6 +93,19 @@
   <p class="mono note codenote">Illustrative spectrum</p>
 </section>
 
+<section id="specs" class="plain">
+  <p class="mono label">At a glance</p>
+  <h2 class="words">Built to open, reuse, recode.</h2>
+  <div class="tiles">
+    <div class="tile glass"><b>48.7 × 18.3 × 12.2<small> mm</small></b><span>Closed body, plus pin and cap</span></div>
+    <div class="tile glass"><b>0<small> batteries</small></b><span>No power in the tag</span></div>
+    <div class="tile glass"><b>9<small> parts</small></b><span>In the CAD assembly, from base to tack cap</span></div>
+    <div class="tile glass"><b>58<small> kHz</small></b><span>AM label for exit gates</span></div>
+    <div class="tile glass"><b>1<small> pin</small></b><span>Pull it and the striker is designed to ring the disk</span></div>
+    <div class="tile glass"><b>Swap</b><span>Change the disk cartridge to change the code</span></div>
+  </div>
+</section>
+
 <section id="science" class="plain">
   <p class="mono label">The science</p>
   <h2 class="serif words">Sound from steel.</h2>
@@ -97,6 +115,23 @@
     <article class="step glass"><span class="mono">02 · Ring</span><h3>The disk vibrates in its own modes.</h3><p>A struck plate rings at natural bending modes. For a plain disk, frequency rises with thickness and falls with the square of its diameter, and it depends on the metal's stiffness and density.</p><code class="formula">f ∝ (t / d²) · √(E / ρ)</code></article>
     <article class="step glass"><span class="mono">03 · Fingerprint</span><h3>Notches shift the peaks.</h3><p>Cutouts along the rim change local stiffness and mass, moving the modes. Each notch pattern gives a different set of frequency peaks. The pattern, not the loudness, is the code.</p></article>
     <article class="step glass"><span class="mono">04 · Listen</span><h3>A nearby microphone reads the peaks.</h3><p>A listener samples fast enough to capture the tag's band, finds the strongest peaks and matches them to known codes. The research did this with simple rules and no machine learning.</p></article>
+  </div>
+
+  <div class="lab">
+    <div class="lab-copy">
+      <p class="mono label">Try it</p>
+      <h3 class="serif">Design a disk.</h3>
+      <p class="body">Change the disk and watch where the peaks move. This is a scaling sketch of the physics, not a measurement of our disks.</p>
+      <div class="presets"><button data-p="soundoff">SoundOff-style<small>14 mm · 1 mm</small></button><button data-p="resonance">Resonance CAD<small>9.5 mm · 0.254 mm</small></button></div>
+      <label>Diameter <output id="o-d"></output><input id="lab-d" type="range" min="8" max="16" step="0.5" value="14"></label>
+      <label>Thickness <output id="o-t"></output><input id="lab-t" type="range" min="0.25" max="1" step="0.05" value="1"></label>
+      <label>Edge notches <output id="o-n"></output><input id="lab-n" type="range" min="0" max="8" step="1" value="3"></label>
+    </div>
+    <div class="lab-view">
+      <canvas id="lab-disk" width="360" height="360" aria-label="Disk with edge notches"></canvas>
+      <canvas id="lab-spec" width="720" height="300" aria-label="Illustrative resonance peaks"></canvas>
+      <p id="lab-read" class="mono"></p>
+    </div>
   </div>
 
   <div class="research">
@@ -130,8 +165,25 @@
 </section>
 
 <section id="layers" class="plain">
-  <p class="mono label">Two layers</p>
+  <p class="mono label">Two layers · in a store</p>
   <h2 class="words">At the shelf. At the door.</h2>
+  <p class="lead sm">Follow three shoppers through a store: one pays, one pulls a tag, one walks out with a tag still on. Watch how a listener hears a ring, and where it can not.</p>
+  <div class="stage">
+    <canvas id="store" role="img" aria-label="Illustrative 3D bird's-eye simulation of a clothing store with tagged garments, listeners near the racks, a checkout lane and an exit gate"></canvas>
+    <div class="hud tl glass" role="group" aria-label="Story">
+      <button data-scn="story" aria-pressed="true">Story</button><button data-scn="pull" aria-pressed="false">Pull a tag</button><button data-scn="pay" aria-pressed="false">Pay &amp; exit</button><button data-scn="gate" aria-pressed="false">Walk out tagged</button><button id="store-play" aria-pressed="false">Pause</button>
+    </div>
+    <div class="hud tl2 glass" role="group" aria-label="View">
+      <button data-view="top" aria-pressed="false">Top</button><button data-view="bird" aria-pressed="true">Bird's-eye</button><button data-view="floor" aria-pressed="false">Floor</button><button id="zones-toggle" aria-pressed="true">Listener zones</button>
+    </div>
+    <div class="hud tr"><p class="mono">Event log</p><ol id="store-log"></ol></div>
+    <div class="hud br"><p class="mono"><span id="store-code">Code --</span> · fingerprint</p><div class="spectrum mini" id="store-spec" aria-hidden="true"></div></div>
+    <p class="caption" id="store-cap" aria-live="polite"></p>
+    <p class="hint mono">Click any tag to ring it · try the table in the corner · drag to look around</p>
+    <p class="mono note stagenote">Illustrative simulation · tag model from our CAD · people and layout are not to scale</p>
+    <p class="nogl-msg lead sm">3D isn't available in this browser. The listener near the rack hears the pin-pull ring; the exit gate reads the 58 kHz label.</p>
+  </div>
+  <p class="mono fine">The table in the far corner sits outside every listener zone, so a ring there is not heard: listener placement matters. How a paid removal at checkout avoids an alert is still an open design question.</p>
   <div class="cards">
     <article class="card glass"><span class="mono">01 · Shelf</span><p>A nearby listener is meant to catch the ring.</p></article>
     <article class="card glass"><span class="mono">02 · Door</span><p>The 58 kHz label is made for AM gates.</p></article>
@@ -181,7 +233,7 @@
 </main>
 
 <footer>
-  <p class="mono refs">Sources: <a href="https://doi.org/10.1145/3770666">Fu et al., SoundOff, Proc. ACM IMWUT (2025)</a> · <a href="https://techxplore.com/news/2026-04-penny-size-ultrasonic-tags-ditch.html">TechXplore, Apr 2026</a> · <a href="https://www.electronicdesign.com/technologies/analog/article/55393159/electronic-design-passive-ultrasonic-tags-easy-to-use-unique-activity-sensors">Electronic Design, Jul 2026</a> · <a href="https://www.uschamber.com/economy/small-retailers-report-increases-in-retail-theft-raise-prices-to-offset-losses">U.S. Chamber of Commerce, Sep 2022</a> · <a href="https://www.fortunebusinessinsights.com/electronic-article-surveillance-market-106466">Fortune Business Insights</a></p>
+  <p class="mono refs">Sources: <a href="https://doi.org/10.1145/3770666">Fu et al., SoundOff, Proc. ACM IMWUT (2025)</a> · <a href="https://techxplore.com/news/2026-04-penny-size-ultrasonic-tags-ditch.html">TechXplore, Apr 2026</a> · <a href="https://www.electronicdesign.com/technologies/analog/article/55393159/electronic-design-passive-ultrasonic-tags-easy-to-use-unique-activity-sensors">Electronic Design, Jul 2026</a> · <a href="https://www.uschamber.com/economy/small-retailers-report-increases-in-retail-theft-raise-prices-to-offset-losses">U.S. Chamber of Commerce, Sep 2022</a> · <a href="https://www.fortunebusinessinsights.com/electronic-article-surveillance-market-106466">Fortune Business Insights</a> · Shop photo: <a href="https://unsplash.com/@eladepure">Ela De Pure</a> on <a href="https://unsplash.com/photos/a-minimalist-shop-with-shelves-and-products-nzisN6dYiV8">Unsplash</a></p>
   <p class="mono">Concept project. Nothing is for sale. Builds on SoundOff (Fu et al., 2025). Not affiliated with its authors or Georgia Tech.</p>
 </footer>
 <script type="module" src="/src/main.js"></script>

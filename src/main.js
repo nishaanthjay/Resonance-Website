@@ -3,6 +3,8 @@ import { STLLoader } from 'three/addons/loaders/STLLoader.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { gsap } from 'gsap';
+import { initStore } from './store.js';
+import { initLab } from './lab.js';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -143,6 +145,8 @@ const dbox = new THREE.Box3(), dctr = new THREE.Vector3();
 const tmp = new THREE.Vector3(), right = new THREE.Vector3(), upv = new THREE.Vector3();
 let visible = false;
 const clock = new THREE.Clock();
+const PTR = { x: 0, y: 0 }, PULSE = { v: 0 };
+let MX = 0, MY = 0;
 
 function frame() {
   requestAnimationFrame(frame);
@@ -175,7 +179,9 @@ function frame() {
   pl.children.forEach((c) => c.material.opacity !== undefined && c.material.transparent && (c.material.opacity = .55 * S.plinth));
   pl.position.y = bbox.min.y - center.y - 0.2 - S.explode * 17 * 0; // sits under the label/base
 
-  spin.rotation.y = S.yaw + (reduce ? 0 : Math.sin(t * .4) * 0.04) + S.spin;
+  MX += (PTR.x - MX) * 0.06; MY += (PTR.y - MY) * 0.06;
+  spin.rotation.y = S.yaw + (reduce ? 0 : Math.sin(t * .4) * 0.04 + MX * 0.28 * (1 - S.face)) + S.spin;
+  spin.rotation.x = reduce ? 0 : MY * 0.07 * (1 - S.face);
   spin.scale.setScalar(S.scale);
 
   // camera: fixed direction from the spec, blended toward top-down for the disk
@@ -199,7 +205,7 @@ function frame() {
   // rings expand from the disk
   const dp = nodes.disk.getWorldPosition(new THREE.Vector3());
   rings.forEach((r, i) => {
-    const k = Math.min(1, Math.max(0, S.ring * 1.4 - i * 0.22));
+    const k = Math.min(1, Math.max(0, Math.max(S.ring, PULSE.v) * 1.4 - i * 0.22));
     r.position.copy(dp); r.quaternion.copy(camera.quaternion);
     r.scale.setScalar(6 + k * (40 + i * 22));
     r.material.opacity = k > 0 && k < 1 ? (1 - k) * 0.9 : 0;
@@ -344,3 +350,23 @@ function stepState() {
 }
 addEventListener('load', () => ScrollTrigger.refresh());
 if (import.meta.env.DEV) window.__dbg = { S, P, ScrollTrigger, get visible() { return visible; }, get ready() { return ready; } };
+
+/* ---------- interaction layer ---------- */
+initStore();
+initLab();
+// pointer: tag leans toward the cursor; click anywhere makes a sound-ripple; click in the hero rings the tag
+addEventListener('pointermove', (e) => { PTR.x = e.clientX / innerWidth * 2 - 1; PTR.y = e.clientY / innerHeight * 2 - 1; });
+addEventListener('pointerdown', (e) => {
+  if (reduce || e.target.closest('input,button,a,canvas#store')) return;
+  const r = document.createElement('i'); r.className = 'ripple'; r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
+  document.body.append(r); setTimeout(() => r.remove(), 950);
+  if (e.target.closest('#hero') && !reduce) gsap.fromTo(PULSE, { v: 0 }, { v: 1, duration: 1.4, ease: 'none', overwrite: true, onComplete: () => (PULSE.v = 0) });
+});
+// card glare follows the cursor
+document.addEventListener('pointermove', (e) => {
+  const c = e.target.closest('.card,.step,.tile,.research'); if (!c) return;
+  const b = c.getBoundingClientRect(); c.style.setProperty('--mx', e.clientX - b.left + 'px'); c.style.setProperty('--my', e.clientY - b.top + 'px');
+});
+// page progress line
+const prog = document.createElement('div'); prog.id = 'prog'; document.body.append(prog);
+addEventListener('scroll', () => (prog.style.transform = 'scaleX(' + scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight) + ')'), { passive: true });
