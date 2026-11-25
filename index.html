@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resonance — a battery-free retail tag, designed to ring</title>
+<meta name="description" content="Resonance is a concept for a battery-free retail tag, designed to ring when someone pulls it off.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+<div id="boot" aria-hidden="true">
+  <svg viewBox="0 0 200 120" width="min(70vw,420px)">
+    <g fill="none" stroke="#35E0FF" stroke-width=".5" stroke-linecap="round">
+      <rect class="bp" x="60" y="22" width="80" height="76" rx="6"/>
+      <rect class="bp" x="72" y="32" width="56" height="22" rx="3"/>
+      <circle class="bp" cx="100" cy="72" r="14"/>
+      <line class="bp" x1="100" y1="10" x2="100" y2="110" stroke-dasharray="2 2"/>
+      <line class="bp" x1="48" y1="60" x2="152" y2="60" stroke-dasharray="2 2"/>
+    </g>
+  </svg>
+  <p class="mono">Resonance / concept 2026</p>
+</div>
+
+<canvas id="stage" aria-hidden="true"></canvas>
+
+<nav class="glass" aria-label="Main">
+  <a class="brand" href="#hero"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><b></b></span>Resonance</a>
+  <a href="#inside">Inside</a><a href="#ring">The ring</a><a href="#roadmap">Roadmap</a>
+  <a class="pill" href="mailto:hello@resonance.example?subject=Pilot%20interest">Pilot interest</a>
+</nav>
+
+<main>
+<section id="hero" class="scene">
+  <div class="hero-copy">
+    <span class="badge glass mono"><i></i>Concept in development</span>
+    <h1>Resonance.</h1>
+    <p class="lead">A battery-free retail tag, designed to ring when someone pulls it off.</p>
+    <a class="pill big" href="#inside">See inside</a>
+    <ul class="chips"><li class="glass">No battery</li><li class="glass">No chip</li><li class="glass">58 kHz exit label</li></ul>
+  </div>
+  <p class="rule mono">Retail loss prevention · Hardware concept · Renders from our CAD</p>
+</section>
+
+<section id="problem" class="plain">
+  <p class="mono label">The problem</p>
+  <h2 class="serif words">Small stores feel it.</h2>
+  <div class="stats">
+    <div><span class="num" data-to="56">0</span><sup>%</sup><p>reported shoplifting in the past year.</p></div>
+    <div><span class="num" data-to="46">0</span><sup>%</sup><p>raised prices because of it.</p></div>
+  </div>
+  <p class="src mono">Source: <a href="https://www.uschamber.com/economy/small-retailers-report-increases-in-retail-theft-raise-prices-to-offset-losses">U.S. Chamber of Commerce survey, September 2022</a></p>
+</section>
+
+<section id="inside" class="scene">
+  <div class="side">
+    <p class="mono label">Inside</p>
+    <h2>Nothing to charge.</h2>
+    <ol class="callouts">
+      <li data-k="pin"><b>Pin</b> designed to hold the tag on.</li>
+      <li data-k="striker"><b>Striker</b> designed to hit the disk.</li>
+      <li data-k="disk"><b>Disk</b> designed to make the sound.</li>
+      <li data-k="cartridge"><b>Cartridge</b> designed to swap the code.</li>
+      <li data-k="label"><b>Label</b> for the exit gate.</li>
+    </ol>
+  </div>
+  <div class="chapter" aria-hidden="true"><span>Chapter 01 — Anatomy</span><div><i id="chapbar"></i></div></div>
+</section>
+
+<section id="ring" class="scene">
+  <div class="top">
+    <p class="mono label">The ring</p>
+    <h2>Pull the pin. Hear it.</h2>
+    <p class="lead sm">Removing the pin is designed to send the striker into the disk.</p>
+  </div>
+  <div class="wave"><svg viewBox="0 0 800 80" preserveAspectRatio="none"><path id="wavepath" fill="none" stroke="#35E0FF" stroke-width="1.5"/></svg><p class="mono note">Illustrative simulation</p></div>
+</section>
+
+<section id="code" class="scene">
+  <div class="side">
+    <p class="mono label">The code</p>
+    <h2>Notched to sound different.</h2>
+    <p class="lead sm">The notches are meant to give each disk its own frequencies. The cartridge is designed to be swapped to change them.</p>
+  </div>
+  <div class="spectrum" id="spec1" aria-hidden="true"></div>
+  <p class="mono note codenote">Illustrative spectrum</p>
+</section>
+
+<section id="layers" class="plain">
+  <p class="mono label">Two layers</p>
+  <h2 class="words">At the shelf. At the door.</h2>
+  <div class="cards">
+    <article class="card glass"><span class="mono">01 · Shelf</span><p>A nearby listener is meant to catch the ring.</p></article>
+    <article class="card glass"><span class="mono">02 · Door</span><p>The 58 kHz label is made for AM gates.</p></article>
+  </div>
+</section>
+
+<section id="privacy" class="plain">
+  <p class="mono label">Privacy</p>
+  <h2 class="words">Built to listen for tags.</h2>
+  <p class="lead sm">The listener is designed to process only the tag's frequency band.</p>
+  <div class="spectrum wide" id="spec2" aria-hidden="true"></div>
+  <p class="mono note">Illustrative spectrum</p>
+</section>
+
+<section id="roadmap" class="plain">
+  <p class="mono label">Roadmap</p>
+  <h2 class="words">Three things to prove.</h2>
+  <div class="cards three">
+    <article class="card glass"><span class="mono">01</span><p>Disks sound distinct.</p><em class="mono">Not yet tested</em></article>
+    <article class="card glass"><span class="mono">02</span><p>A bench test copes with store noise.</p><em class="mono">Not yet tested</em></article>
+    <article class="card glass"><span class="mono">03</span><p>A one-store pilot in one product category.</p><em class="mono">Not yet tested</em></article>
+  </div>
+</section>
+
+<section id="close" class="plain close">
+  <h2 class="serif">Want to pilot it.</h2>
+  <p class="lead sm">Nishaanth: business and go-to-market. Ishanth: hardware and materials.</p>
+  <a class="pill big" href="mailto:hello@resonance.example?subject=Pilot%20interest">Email us</a>
+</section>
+</main>
+
+<footer>
+  <p class="mono">Concept project. Nothing is for sale. Builds on SoundOff (Fu et al., 2025). Not affiliated with its authors or Georgia Tech.</p>
+</footer>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
