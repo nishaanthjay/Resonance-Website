@@ -28,8 +28,8 @@
 
 <nav class="glass" aria-label="Main">
   <a class="brand" href="#hero"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><b></b></span>Resonance</a>
-  <a href="#inside">Inside</a><a href="#ring">The ring</a><a href="#roadmap">Roadmap</a>
-  <a class="pill" href="mailto:hello@resonance.example?subject=Pilot%20interest">Pilot interest</a>
+  <a href="#inside">Inside</a><a href="#science">Science</a><a href="#cost">Cost</a><a href="#roadmap">Roadmap</a>
+  <a class="pill" href="mailto:nishaanth.jay@gmail.com?subject=Resonance%20pilot%20interest">Pilot interest</a>
 </nav>
 
 <main>
@@ -88,6 +88,47 @@
   <p class="mono note codenote">Illustrative spectrum</p>
 </section>
 
+<section id="science" class="plain">
+  <p class="mono label">The science</p>
+  <h2 class="serif words">Sound from steel.</h2>
+  <p class="lead sm">A thin metal plate rings at frequencies set by its shape. Resonance is designed to use that: no power, no radio, just a struck disk with a pattern cut into its edge.</p>
+  <div class="steps">
+    <article class="step glass"><span class="mono">01 · Strike</span><h3>A pin pull releases a striker.</h3><p>Removing the pin is designed to let a small arm flick the disk once. The strike is mechanical, so it needs no battery.</p></article>
+    <article class="step glass"><span class="mono">02 · Ring</span><h3>The disk vibrates in its own modes.</h3><p>A struck plate rings at natural bending modes. For a plain disk, frequency rises with thickness and falls with the square of its diameter, and it depends on the metal's stiffness and density.</p><code class="formula">f ∝ (t / d²) · √(E / ρ)</code></article>
+    <article class="step glass"><span class="mono">03 · Fingerprint</span><h3>Notches shift the peaks.</h3><p>Cutouts along the rim change local stiffness and mass, moving the modes. Each notch pattern gives a different set of frequency peaks. The pattern, not the loudness, is the code.</p></article>
+    <article class="step glass"><span class="mono">04 · Listen</span><h3>A nearby microphone reads the peaks.</h3><p>A listener samples fast enough to capture the tag's band, finds the strongest peaks and matches them to known codes. The research did this with simple rules and no machine learning.</p></article>
+  </div>
+
+  <div class="research">
+    <div class="r-head">
+      <p class="mono label">The research behind it</p>
+      <h3 class="serif">Resonance builds on SoundOff.</h3>
+      <p class="lead sm">“SoundOff: Low-cost Passive Ultrasound Tags for Non-invasive and Non-Intrusive Smart Home Sensing” by Yibo Fu, Bolei Deng, Alexander Adams and Josiah Hester at Georgia Tech, published in <em>Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies</em> (2025). <a href="https://doi.org/10.1145/3770666">Read the paper</a>.</p>
+    </div>
+    <div class="facts">
+      <div><b>&gt;98%</b><span>reported identification accuracy within 1 m</span></div>
+      <div><b>~1,300</b><span>candidate disk designs found in simulation</span></div>
+      <div><b>15</b><span>disks the team physically tested</span></div>
+      <div><b>&lt;4¢</b><span>reported cost of one laser-cut disk</span></div>
+    </div>
+    <div class="cols">
+      <article><h4 class="mono">What the paper shows</h4><ul>
+        <li>A 14 mm, 1 mm thick stainless steel disk, laser cut with a center hole and edge cutouts, rings above 20 kHz when flicked by a printed cantilever on a door or drawer.</li>
+        <li>Disks tuned to different frequencies can be told apart by a microphone with simple signal processing.</li>
+        <li>Accuracy fell below 50% at 1.5 m and failed at 3 m, so the signal stays local.</li></ul></article>
+      <article><h4 class="mono">What Resonance changes</h4><ul>
+        <li>The trigger: a retail tag pin pull instead of a door or drawer.</li>
+        <li>The disk: our CAD uses a 9.5 mm, 0.254 mm stainless shim in a swappable cartridge.</li>
+        <li>An added 58 kHz label so the tag can also meet existing AM exit gates.</li></ul></article>
+      <article><h4 class="mono">What we have not proven</h4><ul>
+        <li>That our thinner, smaller disks give distinct, repeatable peaks.</li>
+        <li>That the lowest peaks sit above hearing range. An ideal-disk estimate puts one near 14 kHz, which is audible.</li>
+        <li>That a listener copes with store noise. Our tests are planned, not run.</li></ul></article>
+    </div>
+    <p class="mono note left">The research reports results for door and drawer sensing. None of its numbers are results for Resonance.</p>
+  </div>
+</section>
+
 <section id="layers" class="plain">
   <p class="mono label">Two layers</p>
   <h2 class="words">At the shelf. At the door.</h2>
@@ -105,6 +146,22 @@
   <p class="mono note">Illustrative spectrum</p>
 </section>
 
+<section id="cost" class="plain">
+  <p class="mono label">Potential cost</p>
+  <h2 class="words">What it could cost.</h2>
+  <p class="lead sm">Early estimates from public data. These are not quotes and not a price. Only two parts have public benchmarks, so there is no total yet.</p>
+  <div class="ledger">
+    <div class="row"><span>Notched steel disk</span><b>≈ $0.04 or less</b><p>Reported for SoundOff's laser-cut 316 stainless disks, about 500 per 0.3 × 0.3 m sheet. Our 301 stainless shim has not been quoted.</p></div>
+    <div class="row"><span>58 kHz AM exit label</span><b>≈ $0.01 – $0.04</b><p>From marketplace listings, Nov 2026: $0.01 each at a 500,000-piece minimum, about $0.04 each in a 5,000-label pack. Not a distributor quote.</p></div>
+    <div class="row"><span>Body, striker, cartridge, pin</span><b class="tbd">Not yet priced</b><p>A reusable multi-part tag has more to make than a disposable label. This is the largest unknown and decides whether the tag can compete.</p></div>
+    <div class="row"><span>Shelf listener</span><b class="tbd">Hardware not chosen</b><p>The research prototype used a Raspberry Pi Zero (about 0.8 W) and a 384 kHz USB ultrasonic microphone. We have not picked ours.</p></div>
+  </div>
+  <div class="cols two">
+    <article><h4 class="mono">Why reuse matters</h4><p class="body">Cost per use is tag cost divided by the number of times it is used. A tag that costs more than a disposable one can still work if it is reused enough. We have not measured how many cycles the pin, striker and disk survive.</p><code class="formula">cost per use = tag cost ÷ reuses</code></article>
+    <article><h4 class="mono">Context</h4><p class="body">The electronic article surveillance market was about $1.25B in 2025 and is projected at $1.89B by 2034 (<a href="https://www.fortunebusinessinsights.com/electronic-article-surveillance-market-106466">Fortune Business Insights</a>). The test phase is planned as a six-month, roughly $3,300 bench test and one-store pilot (team estimate).</p></article>
+  </div>
+</section>
+
 <section id="roadmap" class="plain">
   <p class="mono label">Roadmap</p>
   <h2 class="words">Three things to prove.</h2>
@@ -118,11 +175,13 @@
 <section id="close" class="plain close">
   <h2 class="serif">Want to pilot it.</h2>
   <p class="lead sm">Nishaanth: business and go-to-market. Ishanth: hardware and materials.</p>
-  <a class="pill big" href="mailto:hello@resonance.example?subject=Pilot%20interest">Email us</a>
+  <a class="pill big" href="mailto:nishaanth.jay@gmail.com?subject=Resonance%20pilot%20interest">Email us</a>
+  <p class="mono">nishaanth.jay@gmail.com</p>
 </section>
 </main>
 
 <footer>
+  <p class="mono refs">Sources: <a href="https://doi.org/10.1145/3770666">Fu et al., SoundOff, Proc. ACM IMWUT (2025)</a> · <a href="https://techxplore.com/news/2026-04-penny-size-ultrasonic-tags-ditch.html">TechXplore, Apr 2026</a> · <a href="https://www.electronicdesign.com/technologies/analog/article/55393159/electronic-design-passive-ultrasonic-tags-easy-to-use-unique-activity-sensors">Electronic Design, Jul 2026</a> · <a href="https://www.uschamber.com/economy/small-retailers-report-increases-in-retail-theft-raise-prices-to-offset-losses">U.S. Chamber of Commerce, Sep 2022</a> · <a href="https://www.fortunebusinessinsights.com/electronic-article-surveillance-market-106466">Fortune Business Insights</a></p>
   <p class="mono">Concept project. Nothing is for sale. Builds on SoundOff (Fu et al., 2025). Not affiliated with its authors or Georgia Tech.</p>
 </footer>
 <script type="module" src="/src/main.js"></script>

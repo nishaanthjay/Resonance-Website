@@ -294,7 +294,7 @@ function syncCanvas() {
 
 const wordsReveal = (id) => gsap.to(id + ' .words span', { opacity: 1, stagger: .15, ease: 'none',
   scrollTrigger: { trigger: id, start: 'top 70%', end: 'top 25%', scrub: true } });
-const cardsIn = () => $$('.card').forEach((c, i) => gsap.from(c, { scale: .92, opacity: 0, duration: .9, ease: 'expo.out', delay: (i % 3) * .08,
+const cardsIn = () => $$('.card, .step').forEach((c, i) => gsap.from(c, { scale: .92, opacity: 0, duration: .9, ease: 'expo.out', delay: (i % 3) * .08,
   scrollTrigger: { trigger: c, start: 'top 88%' } }));
 const lis = $$('.callouts li');
 const countUp = () => ScrollTrigger.create({ trigger: '#problem .stats', start: 'top 80%', once: true, onEnter: () =>
@@ -317,7 +317,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     onUpdate: (s) => ($('#wavepath').style.strokeDashoffset = 1200 * (1 - seg(s.progress, .6, .9))) });
   ScrollTrigger.create({ trigger: '#code', start: 'top top', end: `+=${pinLen(1.5) * 100}%`, scrub: true,
     onUpdate: (s) => { const t = seg(s.progress, .3, .9); bars('#spec1').forEach((b, i) => (b.style.height = heights[i] * t + 6 + '%')); } });
-  ['#problem', '#layers', '#privacy', '#roadmap'].forEach(wordsReveal);
+  ['#problem', '#science', '#layers', '#privacy', '#cost', '#roadmap'].forEach(wordsReveal);
   countUp(); lightBand(); cardsIn();
 });
 
